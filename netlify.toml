@@ -1,0 +1,4 @@
+# De site staat in de submap Wa-Parket-V1 (statisch, geen build-stap).
+[build]
+  publish = "Wa-Parket-V1"
+  command = ""
