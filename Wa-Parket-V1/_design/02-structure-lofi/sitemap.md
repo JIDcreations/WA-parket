@@ -58,13 +58,13 @@ Home
 **Desktop**: één sticky balk van 76px. Bij scrollen krimpt die tot 64px met een schaduw.
 
 ```
-[Logo]   Collectie ▾   Diensten ▾   Realisaties   Promoties   Advies ▾   Over ons        ☎ 09 225 05 77   [ Afspraak in de toonzaal ]
+[Logo]   Collectie ▾   Diensten ▾   Realisaties   Over ons              ☎ 09 225 05 77   [ Afspraak maken ]
 ```
 
-- 6 items, waar het vroeger 9 plus 10 waren. "Home" gaat eruit, want het logo linkt naar home.
+- 4 items, waar het vroeger 9 plus 10 waren. "Home" gaat eruit, want het logo linkt naar home.
+- *Update hifi (22/09/2026):* Promoties zit nu in het Collectie-menu en Advies in het Diensten-menu. Beide blijven op de homepage en in de footer. De wireframes hieronder tonen nog de eerste versie met 6 items.
 - **Megamenu Collectie**: 4 kolommen. *Type* (4) · *Vorm* (4) · *Merk* (3) · uitgelichte promotiekaart.
-- **Megamenu Diensten**: 6 diensten met een regel uitleg, plus een kaart "Plaatsing door eigen vakmensen".
-- **Megamenu Advies**: twee kolommen (Uw vloer kiezen · Houtkennis) en een FAQ-link.
+- **Megamenu Diensten**: 6 diensten met een regel uitleg, een kolom Advies (vloerverwarming, houtkeuze, ondergrond, FAQ) en een kaart "Zo werken we".
 - De actieve pagina krijgt een onderlijn van 2px in rood, en hover dezelfde onderlijn op 40%. Dat is meer dan een kleurverschuiving.
 - Contrast: warm zwart op linnen = 13,4:1.
 - Een broodkruimel staat alleen op diepere pagina's (niveau 2 en lager), nooit op home.

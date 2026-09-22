@@ -3,45 +3,72 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
-  /* ── Sticky header krimpt bij scrollen ───────── */
+  /* ── Header: rand na scrollen, verbergen bij naar beneden scrollen ── */
   const header = $('.header');
-  const onScroll = () => header && header.classList.toggle('is-scrolled', window.scrollY > 8);
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  let lastY = window.scrollY, ticking = false;
+  const menuOpen = () => !!$('.mega.is-open') || !!$('.drawer.is-open');
+  const onScroll = () => {
+    const y = window.scrollY;
+    header.classList.toggle('is-scrolled', y > 8);
+    if (!menuOpen()) header.classList.toggle('is-hidden', y > lastY && y > 240);
+    lastY = y; ticking = false;
+  };
+  if (header) {
+    onScroll();
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    header.addEventListener('focusin', () => header.classList.remove('is-hidden'));
+  }
 
-  /* ── Megamenu ────────────────────────────────── */
+  /* ── Menu: dropdowns ─────────────────────────
+     Hover opent na een korte pauze (geen per-ongeluk-open), klik en toetsenbord werken altijd.
+     Focus die het menu-item verlaat, sluit het paneel. */
   const triggers = $$('.nav__link[aria-controls]');
   const backdrop = $('.mega-backdrop');
-  let closeTimer;
+  const panelOf = t => $('#' + t.getAttribute('aria-controls'));
+  let openTimer, closeTimer;
   const closeAll = () => {
-    triggers.forEach(t => { t.setAttribute('aria-expanded', 'false'); $('#' + t.getAttribute('aria-controls')).classList.remove('is-open'); });
+    clearTimeout(openTimer);
+    triggers.forEach(t => { t.setAttribute('aria-expanded', 'false'); panelOf(t).classList.remove('is-open'); });
     backdrop && backdrop.classList.remove('is-open');
   };
   const open = t => {
     clearTimeout(closeTimer);
-    triggers.forEach(o => { if (o !== t) { o.setAttribute('aria-expanded', 'false'); $('#' + o.getAttribute('aria-controls')).classList.remove('is-open'); } });
+    triggers.forEach(o => { if (o !== t) { o.setAttribute('aria-expanded', 'false'); panelOf(o).classList.remove('is-open'); } });
     t.setAttribute('aria-expanded', 'true');
-    $('#' + t.getAttribute('aria-controls')).classList.add('is-open');
+    panelOf(t).classList.add('is-open');
     backdrop && backdrop.classList.add('is-open');
+    header && header.classList.remove('is-hidden');
   };
+  const anyOpen = () => triggers.some(t => t.getAttribute('aria-expanded') === 'true');
   const hoverable = window.matchMedia('(hover: hover)').matches;
   triggers.forEach(t => {
-    const panel = $('#' + t.getAttribute('aria-controls'));
+    const item = t.parentElement;
     t.addEventListener('click', () => t.getAttribute('aria-expanded') === 'true' ? closeAll() : open(t));
+    t.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); open(t); panelOf(t).querySelector('a')?.focus(); }
+    });
+    item.addEventListener('focusout', e => { if (!item.contains(e.relatedTarget)) { t.setAttribute('aria-expanded', 'false'); panelOf(t).classList.remove('is-open'); if (!anyOpen()) backdrop.classList.remove('is-open'); } });
     if (hoverable) {
-      t.parentElement.addEventListener('mouseenter', () => open(t));
-      t.parentElement.addEventListener('mouseleave', () => { closeTimer = setTimeout(closeAll, 180); });
-      panel.addEventListener('mouseenter', () => clearTimeout(closeTimer));
-      panel.addEventListener('mouseleave', () => { closeTimer = setTimeout(closeAll, 180); });
+      item.addEventListener('mouseenter', () => { clearTimeout(closeTimer); clearTimeout(openTimer); openTimer = setTimeout(() => open(t), anyOpen() ? 0 : 90); });
+      item.addEventListener('mouseleave', () => { clearTimeout(openTimer); closeTimer = setTimeout(closeAll, 180); });
     }
   });
-  backdrop && backdrop.addEventListener('click', closeAll);
+  document.addEventListener('click', e => { if (!e.target.closest('.nav__item')) closeAll(); });
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     const openT = triggers.find(t => t.getAttribute('aria-expanded') === 'true');
     closeAll(); openT && openT.focus();
     closeDrawer(); closeFilters();
   });
+
+  /* ── Menu: toon waar je bent op de homepage ── */
+  const spyLinks = $$('.nav__link[href^="index.html#"]');
+  if (spyLinks.length && 'IntersectionObserver' in window) {
+    const map = new Map();
+    spyLinks.forEach(l => { const sec = document.getElementById(l.hash.slice(1)); if (sec) map.set(sec, l); });
+    const io = new IntersectionObserver(entries => entries.forEach(en => map.get(en.target)?.classList.toggle('is-current', en.isIntersecting)), { rootMargin: '-45% 0px -45% 0px' });
+    map.forEach((_, sec) => io.observe(sec));
+  }
 
   /* ── Mobiel menu ─────────────────────────────── */
   const drawer = $('#drawer');

@@ -85,6 +85,6 @@
   --dur-base: 250ms;
 
   /* ── Header ──────────────────────────────────── */
-  --header-h: 76px;        /* sticky; was 453px header+balk+kruimel */
+  --header-h: 72px;        /* sticky; was 453px header+balk+kruimel */
   --header-h-mobile: 64px;
 }

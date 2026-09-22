@@ -18,6 +18,44 @@ ROOT = HERE.parent.parent
 PHONE = "09 225 05 77"
 PHONE_HREF = "tel:+3292250577"
 
+
+# ── Menu-rijen: vierkante foto + titel + één regel uitleg ──
+COLLECTIE_ROWS = [
+    ("collectie.html?type=massief", "visgraat-warm.jpg", "Massief parket", "Traditioneel, vaak opnieuw te schuren"),
+    ("collectie.html?type=meerlagen", "living-garden.jpg", "Meerlagen parket", "Stabiel, ideaal op vloerverwarming"),
+    ("collectie.html?vorm=plank", "products/bolefloor-eik-rustiek.jpg", "Planken", "Van smal tot klassiek breed"),
+    ("collectie.html?vorm=xxl", "products/admonter-lapis-xxl.jpg", "Brede planken", "Tot 30 cm, rust in grote ruimtes"),
+    ("collectie.html?vorm=visgraat", "regorio/regorio-2.jpg", "Visgraat", "Klassiek patroon, moderne afwerking"),
+    ("collectie.html?vorm=hongaarse-punt", "products/dilegno-hongaarse-punt-ostia.jpg", "Hongaarse punt", "Het visgraatpatroon, maar dan in punt"),
+]
+MERK_ROWS = [
+    ("collectie.html?merk=admonter", "products/admonter-salis-rustiek.jpg", "Admonter", ""),
+    ("collectie.html?merk=di-legno", "products/dilegno-visgraat-ostia-7.jpg", "Di Legno", ""),
+    ("collectie.html?merk=bolefloor", "products/bolefloor-walnoot.jpg", "Bolefloor", ""),
+    ("collectie.html?merk=tarkett", "products/tarkett-grace-century.jpg", "Tarkett", ""),
+]
+DIENST_ROWS = [
+    ("index.html#werkwijze", "living-sofa.jpg", "Plaatsing", "Door onze eigen vakmensen"),
+    ("index.html#werkwijze", "detail-texture-reclaimed.jpg", "Schuren en renovatie", "Uw bestaande vloer als nieuw"),
+    ("index.html#werkwijze", "stairs.jpg", "Trappen en maatwerk", "Treden in hetzelfde hout"),
+    ("index.html#werkwijze", "detail-plank-light.jpg", "Afwerking en onderhoud", "Olie, lak en onderhoudsproducten"),
+    ("index.html#werkwijze", "kitchen.jpg", "Randafwerking", "Plinten, profielen, overgangen"),
+    ("index.html#advies", "detail-knots.jpg", "Parketschade herstellen", "Van aangifte tot herstelling"),
+]
+ADVIES_ROWS = [
+    ("index.html#advies", "living-fireplace-wide.jpg", "Parket op vloerverwarming", ""),
+    ("index.html#advies", "detail-chevron.jpg", "Het juiste hout kiezen", ""),
+    ("index.html#advies", "bathroom.jpg", "Ondergrond en vocht", ""),
+    ("index.html#faq", "toonzaal-exterior.jpg", "Veelgestelde vragen", ""),
+]
+
+def rows(items):
+    out = []
+    for href, img, title, sub in items:
+        sub_html = f'<small>{sub}</small>' if sub else ''
+        out.append(f'                <li><a href="{href}"><img src="assets/img/{img}" alt="" loading="lazy" width="56" height="56"><span><b>{title}</b>{sub_html}</span></a></li>')
+    return "\n".join(out)
+
 # ── Header ──────────────────────────────────────────
 def header(active):
     def cur(key):
@@ -25,105 +63,78 @@ def header(active):
     return f'''<a class="skip" href="#main">Naar de inhoud</a>
 <header class="header" id="top">
   <div class="container header__bar">
-    <a class="header__logo" href="index.html" aria-label="W&amp;A Parket, naar de startpagina"><img src="assets/logo/wa-parket-logo.png" alt="W&amp;A Parket, Je staat erop" width="1181" height="614"></a>
+    <a class="header__logo" href="index.html" aria-label="W&amp;A Parket, naar de startpagina"><img src="assets/logo/wa-parket-lockup.png" alt="W&amp;A Parket" width="1600" height="192"></a>
+
     <nav class="nav" aria-label="Hoofdmenu">
-      <div class="nav__item"><button class="nav__link{cur('collectie')}" aria-expanded="false" aria-controls="mega-collectie">Collectie {icon('chev')}</button></div>
-      <div class="nav__item"><button class="nav__link{cur('diensten')}" aria-expanded="false" aria-controls="mega-diensten">Diensten {icon('chev')}</button></div>
-      <div class="nav__item"><a class="nav__link{cur('realisaties')}" href="index.html#realisaties">Realisaties</a></div>
-      <div class="nav__item"><a class="nav__link{cur('promoties')}" href="index.html#promoties">Promoties</a></div>
-      <div class="nav__item"><button class="nav__link{cur('advies')}" aria-expanded="false" aria-controls="mega-advies">Advies {icon('chev')}</button></div>
-      <div class="nav__item"><a class="nav__link{cur('over')}" href="index.html#over-ons">Over ons</a></div>
+      <ul class="nav__list">
+        <li class="nav__item">
+          <button class="nav__link{cur('collectie')}" aria-expanded="false" aria-controls="mega-collectie">Collectie {icon('chev')}</button>
+          <div class="mega" id="mega-collectie">
+            <div class="mega__main">
+              <p class="mega__title">Parketvloeren</p>
+              <ul class="mega__rows">
+{rows(COLLECTIE_ROWS)}
+              </ul>
+            </div>
+            <div class="mega__side">
+              <p class="mega__title">Merken</p>
+              <ul class="mega__rows mega__rows--compact">
+{rows(MERK_ROWS)}
+              </ul>
+              <div class="mega__foot">
+                <a class="mega__promo" href="index.html#promoties"><span>Promoties</span><span class="badge">−20%</span></a>
+                <a class="btn btn--secondary btn--sm btn--block" href="collectie.html">Alle 196 vloeren</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav__item">
+          <button class="nav__link{cur('diensten')}" aria-expanded="false" aria-controls="mega-diensten">Diensten {icon('chev')}</button>
+          <div class="mega" id="mega-diensten">
+            <div class="mega__main">
+              <p class="mega__title">Wat we voor u doen</p>
+              <ul class="mega__rows">
+{rows(DIENST_ROWS)}
+              </ul>
+            </div>
+            <div class="mega__side">
+              <p class="mega__title">Advies</p>
+              <ul class="mega__rows mega__rows--compact">
+{rows(ADVIES_ROWS)}
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="nav__item"><a class="nav__link{cur('realisaties')}" href="index.html#realisaties">Realisaties</a></li>
+        <li class="nav__item"><a class="nav__link{cur('over')}" href="index.html#over-ons">Over ons</a></li>
+      </ul>
     </nav>
+
     <div class="header__actions">
-      <a class="header__phone" href="{PHONE_HREF}">{icon('phone')}<span>{PHONE}</span></a>
-      <a class="btn btn--primary" href="afspraak.html">Afspraak maken</a>
+      <a class="header__phone" href="{PHONE_HREF}">{PHONE}</a>
+      <a class="btn btn--primary btn--sm" href="afspraak.html">Afspraak maken</a>
     </div>
     <button class="burger" aria-label="Menu openen" aria-expanded="false" aria-controls="drawer"><span></span></button>
-  </div>
-
-  <div class="mega" id="mega-collectie">
-    <div class="container mega__inner">
-      <div><p class="mega__title">Type</p><ul class="mega__list">
-        <li><a href="collectie.html?type=massief">Massief parket</a></li>
-        <li><a href="collectie.html?type=meerlagen">Meerlagen parket</a></li>
-        <li><a href="collectie.html?type=fineer">Fineerparket</a></li>
-        <li><a href="collectie.html?type=laminaat">Laminaat &amp; LVT</a></li></ul></div>
-      <div><p class="mega__title">Vorm</p><ul class="mega__list">
-        <li><a href="collectie.html?vorm=plank">Planken</a></li>
-        <li><a href="collectie.html?vorm=xxl">Brede planken (XXL)</a></li>
-        <li><a href="collectie.html?vorm=visgraat">Visgraat</a></li>
-        <li><a href="collectie.html?vorm=hongaarse-punt">Hongaarse punt</a></li></ul></div>
-      <div><p class="mega__title">Merk</p><ul class="mega__list">
-        <li><a href="collectie.html?merk=admonter">Admonter</a></li>
-        <li><a href="collectie.html?merk=di-legno">Di Legno</a></li>
-        <li><a href="collectie.html?merk=bolefloor">Bolefloor</a></li>
-        <li><a href="collectie.html?merk=tarkett">Tarkett</a></li></ul>
-        <p style="margin-top:var(--space-5)"><a class="link" href="collectie.html">Volledige collectie</a></p></div>
-      <a class="mega__feature" href="collectie.html?merk=admonter">
-        <img src="assets/img/products/admonter-salis-rustiek.jpg" alt="" loading="lazy">
-        <div><span class="badge">−20%</span><span class="promo__brand">Admonter, promotie</span><h3 class="h3">Salis eik rustiek</h3><span class="small muted">Geldig tot 31 oktober</span></div>
-      </a>
-    </div>
-  </div>
-
-  <div class="mega" id="mega-diensten">
-    <div class="container mega__inner mega__inner--services">
-      <div><ul class="mega__list">
-        <li><a href="index.html#werkwijze">Plaatsing<small>Door onze eigen vakmensen</small></a></li>
-        <li><a href="index.html#werkwijze">Schuren en renovatie<small>Uw bestaande vloer als nieuw</small></a></li></ul></div>
-      <div><ul class="mega__list">
-        <li><a href="index.html#werkwijze">Trappen en maatwerk<small>Treden in hetzelfde hout</small></a></li>
-        <li><a href="index.html#werkwijze">Afwerking en onderhoud<small>Olie, lak en onderhoudsproducten</small></a></li></ul></div>
-      <div><ul class="mega__list">
-        <li><a href="index.html#werkwijze">Randafwerking<small>Plinten, profielen, overgangen</small></a></li>
-        <li><a href="index.html#advies">Parketschade herstellen<small>Van aangifte tot herstelling</small></a></li></ul></div>
-      <a class="mega__feature" href="index.html#werkwijze">
-        <img src="assets/img/stairs.jpg" alt="" loading="lazy">
-        <div><h3 class="h3">Eén team, van staal tot laatste plint</h3><span class="small muted">Zo werken we</span></div>
-      </a>
-    </div>
-  </div>
-
-  <div class="mega" id="mega-advies">
-    <div class="container mega__inner">
-      <div><p class="mega__title">Uw vloer kiezen</p><ul class="mega__list">
-        <li><a href="index.html#advies">Ondergrond</a></li>
-        <li><a href="index.html#advies">Parket op vloerverwarming</a></li>
-        <li><a href="index.html#advies">Plaatsingsmethodes</a></li>
-        <li><a href="index.html#advies">Parketvormen</a></li></ul></div>
-      <div><p class="mega__title">Houtkennis</p><ul class="mega__list">
-        <li><a href="index.html#advies">Het juiste hout kiezen</a></li>
-        <li><a href="index.html#advies">Houtsoorten vergeleken</a></li>
-        <li><a href="index.html#advies">Binnenklimaat en werking</a></li>
-        <li><a href="index.html#advies">Afwerking en onderhoud</a></li></ul></div>
-      <div><p class="mega__title">Snel antwoord</p><ul class="mega__list">
-        <li><a href="index.html#faq">Veelgestelde vragen</a></li>
-        <li><a href="index.html#advies">Nieuws en blog</a></li></ul></div>
-      <a class="mega__feature" href="index.html#advies">
-        <img src="assets/img/living-fireplace-wide.jpg" alt="" loading="lazy">
-        <div><span class="promo__brand">Gids</span><h3 class="h3">Parket op vloerverwarming</h3></div>
-      </a>
-    </div>
   </div>
 </header>
 <div class="mega-backdrop" aria-hidden="true"></div>
 
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
-  <div class="drawer__top">
-    <img src="assets/logo/wa-parket-logo.png" alt="W&amp;A Parket" width="1181" height="614">
+  <div class="drawer__top container">
+    <img src="assets/logo/wa-parket-lockup.png" alt="W&amp;A Parket" width="1600" height="192">
     <button class="drawer__close" aria-label="Menu sluiten">{icon('close')}</button>
   </div>
-  <div class="drawer__body">
+  <nav class="drawer__body container" aria-label="Mobiel menu">
     <div class="drawer__group"><button aria-expanded="false" aria-controls="d-col">Collectie {icon('plus')}</button>
-      <div class="drawer__sub" id="d-col"><a href="collectie.html?type=massief">Massief parket</a><a href="collectie.html?type=meerlagen">Meerlagen parket</a><a href="collectie.html?vorm=visgraat">Visgraat</a><a href="collectie.html?vorm=hongaarse-punt">Hongaarse punt</a><a href="collectie.html"><b>Volledige collectie</b></a></div></div>
+      <div class="drawer__sub drawer__sub--thumbs" id="d-col">{''.join(f'<a href="{h}"><img src="assets/img/{i}" alt="" loading="lazy">{t}</a>' for h, i, t, _ in COLLECTIE_ROWS)}<a href="index.html#promoties">Promoties</a><a href="collectie.html">Alle 196 vloeren</a></div></div>
     <div class="drawer__group"><button aria-expanded="false" aria-controls="d-dien">Diensten {icon('plus')}</button>
-      <div class="drawer__sub" id="d-dien"><a href="index.html#werkwijze">Plaatsing</a><a href="index.html#werkwijze">Schuren en renovatie</a><a href="index.html#werkwijze">Trappen en maatwerk</a><a href="index.html#werkwijze">Afwerking en onderhoud</a></div></div>
+      <div class="drawer__sub drawer__sub--thumbs" id="d-dien">{''.join(f'<a href="{h}"><img src="assets/img/{i}" alt="" loading="lazy">{t}</a>' for h, i, t, _ in DIENST_ROWS)}<a href="index.html#faq">Advies en veelgestelde vragen</a></div></div>
     <div class="drawer__group"><a href="index.html#realisaties">Realisaties</a></div>
-    <div class="drawer__group"><a href="index.html#promoties">Promoties</a></div>
-    <div class="drawer__group"><button aria-expanded="false" aria-controls="d-adv">Advies {icon('plus')}</button>
-      <div class="drawer__sub" id="d-adv"><a href="index.html#advies">Uw vloer kiezen</a><a href="index.html#advies">Houtkennis</a><a href="index.html#faq">Veelgestelde vragen</a></div></div>
     <div class="drawer__group"><a href="index.html#over-ons">Over ons</a></div>
-    <p class="drawer__meta">Antwerpse Steenweg 148, 9080 Lochristi<br>dinsdag tot vrijdag 13 tot 18 uur, zaterdag 10 tot 18 uur</p>
+  </nav>
+  <div class="drawer__foot container">
+    <p>Antwerpse Steenweg 148, Lochristi<br>Di tot vr 13 tot 18 uur, za 10 tot 18 uur</p>
+    <div class="drawer__ctas"><a class="btn btn--secondary" href="{PHONE_HREF}">{icon('phone')} Bellen</a><a class="btn btn--primary" href="afspraak.html">Afspraak maken</a></div>
   </div>
 </div>
 '''
