@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>W&amp;A Parket brand board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:var(--color-bg);color:var(--color-text);font:var(--fw-regular) var(--fs-body)/var(--lh-body) var(--font-body)}
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+  section{padding:var(--space-9) 0;border-top:1px solid var(--color-border)}
+  .eyebrow{font:var(--fw-semibold) var(--fs-eyebrow)/1 var(--font-body);letter-spacing:var(--ls-eyebrow);text-transform:uppercase;color:var(--color-accent);display:flex;align-items:center;gap:.75rem;margin:0 0 var(--space-4)}
+  .eyebrow::before{content:"";width:28px;height:12px;background:repeating-linear-gradient(115deg,var(--wa-rood) 0 2px,transparent 2px 6px)}
+  h1,h2,h3{font-family:var(--font-display);font-weight:500;margin:0;line-height:var(--lh-tight)}
+  h1{font-size:var(--fs-display)}
+  h2{font-size:var(--fs-h2);margin-bottom:var(--space-6)}
+  .muted{color:var(--color-text-muted)}
+  .grid{display:grid;gap:var(--item-gap)}
+  header.cover{display:grid;grid-template-columns:1.1fr 1fr;min-height:min(78vh,760px)}
+  header.cover .txt{padding:var(--space-9) var(--gutter);display:flex;flex-direction:column;justify-content:center;gap:var(--space-5)}
+  header.cover img.photo{width:100%;height:100%;object-fit:cover}
+  .logos{grid-template-columns:repeat(3,1fr)}
+  .logo-tile{aspect-ratio:4/3;display:grid;place-items:center;padding:var(--space-7);border-radius:var(--radius-md)}
+  .logo-tile img{max-width:100%;max-height:100%}
+  .caption{font-size:var(--fs-small);color:var(--color-text-muted);margin-top:var(--space-2)}
+  .swatches{grid-template-columns:repeat(4,1fr)}
+  .sw{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--color-border);background:var(--wa-wit)}
+  .sw .chip{height:120px;display:flex;align-items:flex-end;padding:var(--space-3);font:600 13px/1 var(--font-body)}
+  .sw .meta{padding:var(--space-3) var(--space-4);font-size:var(--fs-small);line-height:1.5}
+  .sw .meta b{display:block;font-size:15px}
+  .type-row{display:grid;grid-template-columns:180px 1fr;gap:var(--space-6);padding:var(--space-5) 0;border-bottom:1px solid var(--color-border);align-items:baseline}
+  .type-row .spec{font-size:var(--fs-small);color:var(--color-text-muted)}
+  .btns{display:flex;flex-wrap:wrap;gap:var(--space-5);align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:.6rem;height:var(--btn-h);padding:0 var(--btn-px);font:var(--btn-font);border-radius:var(--radius-sm);text-decoration:none;cursor:pointer;transition:background var(--dur-fast) var(--ease-out),color var(--dur-fast) var(--ease-out)}
+  .btn:focus-visible{outline:2px solid var(--color-focus);outline-offset:2px}
+  .btn-primary{background:var(--wa-rood);color:#fff;border:0}
+  .btn-primary:hover{background:var(--wa-rood-donker)}
+  .btn-secondary{background:transparent;color:var(--wa-zwart);border:1.5px solid var(--wa-zwart)}
+  .btn-secondary:hover{background:var(--wa-zwart);color:var(--wa-creme)}
+  .link{font:var(--fw-semibold) .9375rem/1 var(--font-body);color:var(--wa-zwart);text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+  .link:hover{color:var(--wa-rood)}
+  .dark{background:var(--wa-zwart);color:var(--wa-creme);padding:var(--space-7);border-radius:var(--radius-md)}
+  .dark .btn-secondary{color:var(--wa-creme);border-color:var(--wa-creme)}
+  .photos{grid-template-columns:repeat(6,1fr);grid-auto-rows:180px}
+  .photos img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius-sm)}
+  .photos .w2{grid-column:span 2}.photos .h2{grid-row:span 2}
+  .stripe-demo{height:40px;background:repeating-linear-gradient(115deg,var(--wa-rood) 0 3px,transparent 3px 11px);width:120px;flex:none}
+  .rules{grid-template-columns:repeat(3,1fr)}
+  .rule{background:var(--wa-wit);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-5)}
+  .rule h3{font-size:var(--fs-h3);margin-bottom:var(--space-2)}
+  .bad{color:var(--wa-rood);font-weight:600}
+  @media (max-width:800px){
+    header.cover{grid-template-columns:1fr}header.cover img.photo{height:50vh}
+    .logos,.rules{grid-template-columns:1fr}.swatches{grid-template-columns:repeat(2,1fr)}
+    .type-row{grid-template-columns:1fr;gap:var(--space-2)}
+    .photos{grid-template-columns:repeat(2,1fr)}.photos .w2{grid-column:span 2}
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="txt">
+    <img src="logo/wa-parket-logo.png" alt="W&amp;A Parket, Je staat erop" style="width:220px">
+    <h1>Vakmanschap dat<br>je voelt onder je voeten.</h1>
+    <p class="muted" style="max-width:44ch;font-size:var(--fs-lead)">De basis voor de nieuwe wa-parket.be: logo, kleur, typografie, knoppen en beeld. Alles is afgeleid van het bestaande merk, maar strakker toegepast.</p>
+  </div>
+  <img class="photo" src="../../assets/img/dining-arch.jpg" alt="">
+</header>
+
+<section><div class="wrap">
+  <h2>Beeldmerk, woordmerk, baseline</h2>
+  <div class="grid logos">
+    <div><div class="logo-tile" style="background:var(--wa-wit);border:1px solid var(--color-border)"><img src="logo/wa-parket-logo.png" alt=""></div><p class="caption">Primair: op wit/linnen</p></div>
+    <div><div class="logo-tile" style="background:var(--wa-zwart)"><img src="logo/wa-parket-logo-light.png" alt=""></div><p class="caption">Op donker (afgeleid, geen origineel)</p></div>
+    <div><div class="logo-tile" style="background:var(--wa-creme)"><img src="logo/wa-parket-mark.png" alt="" style="max-width:60%"></div><p class="caption">Beeldmerk los: favicon, social, ornament</p></div>
+  </div>
+  <div style="display:flex;gap:var(--space-6);align-items:center;margin-top:var(--space-7)">
+    <div class="stripe-demo"></div>
+    <p class="muted" style="margin:0;max-width:60ch">De strepen uit het beeldmerk lezen als planken. Ze komen op de site maar op één plek terug: het beeld in de hero, dat in vier planken wordt gelegd. Het watermerk op de foto's verdwijnt.</p>
+  </div>
+</div></section>
+
+<section style="background:var(--wa-creme)"><div class="wrap">
+  <h2>Gesampled uit het logo</h2>
+  <div class="grid swatches">
+    <div class="sw"><div class="chip" style="background:#9A3324;color:#fff">Aa 7,3:1</div><div class="meta"><b>Rood</b>#9A3324 · actie, accent</div></div>
+    <div class="sw"><div class="chip" style="background:#2D2926;color:#F4EAD5">Aa 12:1</div><div class="meta"><b>Warm zwart</b>#2D2926 · tekst, donker vlak</div></div>
+    <div class="sw"><div class="chip" style="background:#F4EAD5;color:#2D2926">Aa</div><div class="meta"><b>Crème</b>#F4EAD5 · sectie-achtergrond</div></div>
+    <div class="sw"><div class="chip" style="background:#FAF8F7;color:#2D2926;border-bottom:1px solid #E4D9C4">Aa</div><div class="meta"><b>Off-white</b>#FAF8F7, pagina</div></div>
+    <div class="sw"><div class="chip" style="background:#7A2519;color:#fff">Aa 10:1</div><div class="meta"><b>Rood donker</b>#7A2519 · hover</div></div>
+    <div class="sw"><div class="chip" style="background:#6B625A;color:#fff">Aa</div><div class="meta"><b>Steen</b>#6B625A · meta-tekst, 5:1 op crème</div></div>
+    <div class="sw"><div class="chip" style="background:#E4D9C4;color:#2D2926">Aa</div><div class="meta"><b>Lijn</b>#E4D9C4 · randen</div></div>
+    <div class="sw"><div class="chip" style="background:#C49A6C;color:#2D2926">deco</div><div class="meta"><b>Eik</b>#C49A6C · nooit voor tekst</div></div>
+  </div>
+  <p class="muted" style="margin-top:var(--space-6)">De oude navigatie haalde <span class="bad">3,3:1</span> (grijs op crème). De nieuwe komt op <b>13,4:1</b> (warm zwart op linnen).</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Garamond spreekt, Montserrat werkt</h2>
+  <div class="type-row"><div class="spec">Display<br>EB Garamond 500<br>80 / 1.08</div><div style="font:500 var(--fs-display)/1.08 var(--font-display)">Je staat erop.</div></div>
+  <div class="type-row"><div class="spec">H1<br>EB Garamond 500<br>56</div><div style="font:500 var(--fs-h1)/1.1 var(--font-display)">Massief parket</div></div>
+  <div class="type-row"><div class="spec">H2<br>EB Garamond 500<br>42</div><div style="font:500 var(--fs-h2)/1.15 var(--font-display)">Welkom in onze toonzaal</div></div>
+  <div class="type-row"><div class="spec">H3<br>EB Garamond 500<br>24</div><div style="font:500 var(--fs-h3)/1.25 var(--font-display)">Admonter eik rustiek wit geolied</div></div>
+  <div class="type-row"><div class="spec">Lead<br>Montserrat 400<br>21 / 1.55</div><div style="font-size:var(--fs-lead);line-height:1.55;max-width:var(--measure)">Een familiebedrijf met eigen plaatsers. U kiest in onze toonzaal, wij leggen de vloer.</div></div>
+  <div class="type-row"><div class="spec">Body<br>Montserrat 400<br>17 / 1.65<br><span class="bad">was 14 / 300</span></div><div style="max-width:var(--measure)">In onze toonzaal in Lochristi kiest u uit meer dan 50 houtsoorten en 350 kleuren. We maken graag tijd voor u, vrijblijvend of op afspraak. Lukt langskomen niet? Dan komen we bij u thuis.</div></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Eén primaire actie per scherm</h2>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:var(--space-6)">
+    <div class="btns" style="padding:var(--space-7);background:var(--wa-wit);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+      <a class="btn btn-primary" href="#">Afspraak maken</a>
+      <a class="btn btn-secondary" href="#">Bekijk collectie</a>
+      <a class="link" href="#">Alle promoties</a>
+    </div>
+    <div class="btns dark">
+      <a class="btn btn-primary" href="#">Offerte aanvragen</a>
+      <a class="btn btn-secondary" href="#">Bel 09 225 05 77</a>
+    </div>
+  </div>
+  <p class="muted" style="margin-top:var(--space-5)">Primair: gevuld · Secundair: omlijnd · Tertiair: tekstlink met onderlijn. Hoogte 48px, radius 2px, Montserrat 600. De oude knoppen ("Bekijk meer", 14px/300) waren niet van lopende tekst te onderscheiden.</p>
+</div></section>
+
+<section style="background:var(--wa-creme)"><div class="wrap">
+  <h2>Wijd voor sfeer, dichtbij voor vakmanschap</h2>
+  <div class="grid photos">
+    <img class="w2 h2" src="../../assets/img/living-garden.jpg" alt="">
+    <img src="../../assets/img/detail-visgraat.jpg" alt="">
+    <img src="../../assets/img/detail-hongaarse-punt.jpg" alt="">
+    <img class="w2" src="../../assets/img/kitchen.jpg" alt="">
+    <img class="w2" src="../../assets/img/horeca-relais-lounge.jpg" alt="">
+    <img src="../../assets/img/detail-plank-light.jpg" alt="">
+    <img src="../../assets/img/stairs.jpg" alt="">
+    <img class="w2" src="../../assets/img/chevrolet-truck.jpg" alt="">
+    <img class="w2" src="../../assets/img/toonzaal-exterior-2.jpg" alt="">
+    <img class="w2" src="../../assets/img/visgraat-warm.jpg" alt="">
+  </div>
+  <p class="muted" style="margin-top:var(--space-5)">⚠️ Bijna alle foto's hebben een watermerk en de banners zijn maar 1110px breed. Voor productie zijn de originelen nodig.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Wat we anders doen dan de oude site</h2>
+  <div class="grid rules">
+    <div class="rule"><h3>Hiërarchie eerst</h3><p class="muted">Een Garamond-titel volstaat, zonder labels erboven. De schaal loopt van 76 naar 24. Nooit meer elf identieke H2's.</p></div>
+    <div class="rule"><h3>Ritme met vlakken</h3><p class="muted">Off-white, crème, warm zwart en een vollebreedte-beeld wisselen elkaar af. Tussen secties is de witruimte groter dan tussen items.</p></div>
+    <div class="rule"><h3>Altijd een volgende stap</h3><p class="muted">Een sticky nav met de primaire knop. Op mobiel een vaste balk met bellen en een afspraak.</p></div>
+  </div>
+</div></section>
+
+</body>
+</html>

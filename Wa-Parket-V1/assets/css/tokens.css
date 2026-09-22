@@ -1,0 +1,90 @@
+/* W&A Parket — design tokens (redesign V1)
+   Bron: logo (Logo-WA-Parket-RGB-Baseline-rood), huidige site-CSS, audit 22/09/2026.
+   Kleuren gesampled uit het logo, niet uit de oude CSS (#A02816 was een afwijking). */
+
+
+:root {
+  /* ── Kleur: merk ─────────────────────────────── */
+  --wa-rood:        #9A3324; /* logo rood — primaire actie, accenten. 7,3:1 op wit */
+  --wa-rood-donker: #7A2519; /* hover/pressed van primaire knop */
+  --wa-zwart:       #2D2926; /* logo warm zwart — tekst, donkere secties */
+  --wa-creme:       #F4EAD5; /* merk-crème — sectie-achtergrond, niet voor lichte tekst */
+  --wa-offwhite:    #FAF8F7; /* pagina-achtergrond: neutraal, licht naar het logorood getint. Crème blijft sectiekleur. */
+  --wa-wit:         #FFFFFF;
+
+  /* ── Kleur: ondersteunend ────────────────────── */
+  --wa-steen:       #6B625A; /* secundaire tekst. 5,0:1 op crème, 5,5:1 op linnen */
+  --wa-lijn:        #E4D9C4; /* randen, scheidingslijnen op linnen/crème */
+  --wa-eik:         #C49A6C; /* enkel decoratief (strepen, badges) — nooit voor tekst */
+
+  /* ── Semantisch ──────────────────────────────── */
+  --color-bg:           var(--wa-offwhite);
+  --color-surface:      var(--wa-wit);
+  --color-surface-alt:  var(--wa-creme);
+  --color-surface-dark: var(--wa-zwart);
+  --color-text:         var(--wa-zwart);
+  --color-text-muted:   var(--wa-steen);
+  --color-text-on-dark: var(--wa-creme);
+  --color-accent:       var(--wa-rood);
+  --color-accent-hover: var(--wa-rood-donker);
+  --color-border:       var(--wa-lijn);
+  --color-focus:        var(--wa-rood);
+
+  /* ── Typografie ──────────────────────────────── */
+  /* Display = EB Garamond: sluit aan bij de Garamond-serif van het logo.
+     Tekst/UI = Montserrat: continuïteit met de huidige site, maar nooit meer in 300. */
+  --font-display: "EB Garamond", "Adobe Garamond Pro", Garamond, Georgia, serif;
+  --font-body:    "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold: 600;
+
+  /* Schaal (fluid, 360px → 1440px). Audit: alles stond op 26px/300 of 14px/300. */
+  --fs-display: clamp(2.75rem, 1.9rem + 3.8vw, 5rem);     /* 44 → 80  hero */
+  --fs-h1:      clamp(2.25rem, 1.7rem + 2.4vw, 3.5rem);   /* 36 → 56  paginatitel */
+  --fs-h2:      clamp(1.75rem, 1.4rem + 1.5vw, 2.625rem); /* 28 → 42  sectietitel */
+  --fs-h3:      clamp(1.25rem, 1.15rem + .45vw, 1.5rem);  /* 20 → 24  kaarttitel */
+  --fs-lead:    clamp(1.125rem, 1.05rem + .3vw, 1.3125rem); /* 18 → 21 */
+  --fs-body:    1.0625rem;  /* 17px — was 14px */
+  --fs-small:   0.875rem;   /* 14px — enkel meta, nooit lopende tekst */
+  --fs-eyebrow: 0.75rem;    /* 12px, uppercase, letterspacing */
+
+  --lh-tight: 1.08;
+  --lh-snug:  1.25;
+  --lh-body:  1.65;   /* was 22/14 = 1.57 op te kleine tekst */
+  --measure:  66ch;   /* max. regellengte lopende tekst */
+
+  --ls-eyebrow: 0.16em;
+
+  /* ── Ruimte (8pt) ────────────────────────────── */
+  --space-1: 0.25rem;  --space-2: 0.5rem;  --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.5rem;   --space-6: 2rem;    --space-7: 3rem;    --space-8: 4rem;
+  --space-9: 6rem;     --space-10: 8rem;
+  /* Ritme: sectie ≫ blok ≫ item (audit §4) */
+  --section-y: clamp(4rem, 2.5rem + 6vw, 8rem);
+  --block-gap: clamp(2rem, 1.5rem + 2vw, 3rem);
+  --item-gap:  1.5rem;
+  --gutter:    clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --container: 1280px;
+
+  /* ── Vorm ────────────────────────────────────── */
+  --radius-sm: 2px;   /* knoppen, inputs: strak, ambachtelijk */
+  --radius-md: 4px;   /* kaarten */
+  --shadow-card: 0 1px 2px rgba(45,41,38,.06), 0 8px 24px -12px rgba(45,41,38,.18);
+  --shadow-nav:  0 1px 0 var(--wa-lijn), 0 8px 24px -16px rgba(45,41,38,.25);
+
+  /* ── Knoppen (audit §3: vaste hiërarchie) ────── */
+  --btn-h: 3rem;           /* 48px — ook tap target */
+  --btn-px: 1.5rem;
+  --btn-font: var(--fw-semibold) 0.9375rem/1 var(--font-body);
+
+  /* ── Beweging ────────────────────────────────── */
+  --ease-out: cubic-bezier(.2,.7,.2,1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+
+  /* ── Header ──────────────────────────────────── */
+  --header-h: 76px;        /* sticky; was 453px header+balk+kruimel */
+  --header-h-mobile: 64px;
+}

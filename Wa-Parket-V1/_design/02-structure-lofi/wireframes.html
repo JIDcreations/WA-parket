@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>W&amp;A Parket wireframes</title>
+<style>
+  :root{
+    --ink:#1f1f1f; --mid:#6d6d6d; --line:#cfcfcf; --fill:#e6e6e6; --fill2:#f2f2f2; --page:#fafafa; --dark:#3a3a3a;
+    --note:#9A3324;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:#ececec;color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+  .doc{max-width:1560px;margin:0 auto;padding:40px 24px 120px}
+  .doc>header h1{font-size:32px;margin:0 0 4px}
+  .doc>header p{color:var(--mid);margin:0 0 8px;max-width:80ch}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 40px}
+  .toc a{font-size:13px;padding:6px 12px;background:#fff;border:1px solid var(--line);border-radius:99px;color:var(--ink);text-decoration:none}
+  .frame-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin:56px 0 12px;display:flex;gap:12px;align-items:baseline}
+  .frame-title b{color:var(--ink);font-size:20px;letter-spacing:0;text-transform:none}
+  .row{display:flex;gap:32px;align-items:flex-start}
+  .frame{background:var(--page);box-shadow:0 1px 3px rgba(0,0,0,.12),0 12px 40px -20px rgba(0,0,0,.3);position:relative;flex:none}
+  .desk{width:1200px}
+  .mob{width:375px}
+  .notes{flex:1;min-width:240px;font-size:13px;position:sticky;top:16px}
+  .notes ol{margin:0;padding:0;list-style:none;counter-reset:n}
+  .notes li{counter-increment:n;padding:10px 0 10px 36px;border-bottom:1px solid var(--line);position:relative}
+  .notes li::before{content:counter(n);position:absolute;left:0;top:9px;width:22px;height:22px;border-radius:50%;background:var(--note);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+  .notes li b{display:block}
+  .frame div,.frame aside{position:relative}
+  .frame .pin{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--note);color:#fff;font:700 12px/24px system-ui;text-align:center;z-index:5;box-shadow:0 0 0 3px rgba(154,51,36,.2)}
+
+  /* wireframe primitives */
+  .img{background:var(--fill);position:relative;overflow:hidden}
+  .img::before,.img::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,transparent calc(50% - .5px),#c4c4c4 50%,transparent calc(50% + .5px))}
+  .img::after{background:linear-gradient(to top left,transparent calc(50% - .5px),#c4c4c4 50%,transparent calc(50% + .5px))}
+  .img span{position:absolute;left:10px;bottom:8px;font-size:11px;color:var(--mid);z-index:1;background:var(--fill);padding:2px 6px}
+  .t{height:10px;background:#d4d4d4;border-radius:2px;margin:6px 0}
+  .w90{width:90%}.w80{width:80%}.w70{width:70%}.w60{width:60%}.w50{width:50%}.w40{width:40%}.w30{width:30%}
+  .h1{font:600 44px/1.05 Georgia,serif;margin:0}
+  .h2{font:600 30px/1.1 Georgia,serif;margin:0}
+  .h3{font:600 18px/1.2 Georgia,serif;margin:0}
+  .eb{font:700 10px/1 system-ui;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin:0 0 10px;display:flex;gap:8px;align-items:center}
+  .eb::before{content:"";width:18px;height:8px;background:repeating-linear-gradient(115deg,#9d9d9d 0 1.5px,transparent 1.5px 4.5px)}
+  .lead{color:var(--mid);font-size:15px;margin:12px 0 0}
+  .small{font-size:12px;color:var(--mid)}
+  .btn{display:inline-flex;align-items:center;height:40px;padding:0 18px;font-size:13px;font-weight:700;border-radius:2px;white-space:nowrap}
+  .btn.p{background:var(--ink);color:#fff}
+  .btn.s{border:1.5px solid var(--ink)}
+  .btn.full{width:100%;justify-content:center}
+  .lnk{font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+  .sec{padding:56px 48px}
+  .alt{background:var(--fill2)}
+  .dk{background:var(--dark);color:#eee}
+  .dk .eb,.dk .small{color:#bbb}.dk .t{background:#666}.dk .img{background:#555}.dk .img span{background:#555;color:#bbb}
+  .dk .img::before{background:linear-gradient(to top right,transparent calc(50% - .5px),#777 50%,transparent calc(50% + .5px))}
+  .dk .img::after{background:linear-gradient(to top left,transparent calc(50% - .5px),#777 50%,transparent calc(50% + .5px))}
+  .dk .btn.s{border-color:#eee}
+  .dk .btn.p{background:#fff;color:var(--ink)}
+  .g{display:grid;gap:20px}
+  .flex{display:flex;gap:16px;align-items:center}
+  .between{justify-content:space-between}
+  .card{background:#fff;border:1px solid var(--line)}
+  .pad{padding:16px}
+  .chip{display:inline-flex;gap:6px;align-items:center;font-size:12px;padding:5px 10px;border:1px solid var(--ink);border-radius:99px;background:#fff}
+  .chip.off{border-color:var(--line);color:var(--mid)}
+  .badge{display:inline-block;font:700 10px/1 system-ui;letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;background:var(--ink);color:#fff}
+  .box{display:inline-block;width:16px;height:16px;border:1.5px solid var(--ink);border-radius:2px;vertical-align:-3px;margin-right:8px}
+  .box.on{background:var(--ink);box-shadow:inset 0 0 0 3px #fff}
+  .img span.badge{background:var(--ink);color:#fff;bottom:auto;padding:5px 8px;font-size:10px}
+  .icon{width:40px;height:40px;border-radius:50%;background:var(--fill);border:1px solid var(--line)}
+
+  /* nav */
+  .nav{height:72px;display:flex;align-items:center;gap:28px;padding:0 32px;background:#fff;border-bottom:1px solid var(--line)}
+  .logo{width:120px;height:40px;background:var(--fill);display:grid;place-items:center;font:700 11px system-ui;color:var(--mid);flex:none}
+  .nav a{font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;white-space:nowrap}
+  .nav a.act{box-shadow:inset 0 -2px 0 var(--ink);padding-bottom:6px}
+  .nav .sp{flex:1}
+  .frame .mobbar{position:sticky;bottom:0;display:grid;grid-template-columns:1fr 1.4fr;gap:8px;padding:10px 12px;background:#fff;border-top:1px solid var(--line)}
+  .anno-strip{font-size:11px;color:var(--note);font-weight:700;padding:4px 10px;background:#f7ebe8;border-bottom:1px dashed var(--note)}
+  @media (max-width:1400px){.row{flex-direction:column}.notes{position:static;width:100%}}
+</style>
+</head>
+<body>
+<div class="doc">
+<header>
+  <p class="small">W&amp;A Parket · Redesign V1 · Fase 2: structuur · 22/09/2026</p>
+  <h1>Wireframes (lo-fi)</h1>
+  <p>Grijstinten met echte copy waar ze de hiërarchie bepaalt. Rode pins verwijzen naar de audit. Het doel is volgorde en gewicht per scherm vastleggen, nog niet de stijl. Zie <code>sitemap.md</code> voor de volledige IA.</p>
+  <nav class="toc">
+    <a href="#home">1 · Home desktop</a><a href="#mega">2 · Megamenu</a><a href="#mobile">3 · Mobiel</a><a href="#plp">4 · Collectie</a><a href="#pdp">5 · Productdetail</a>
+  </nav>
+</header>
+
+<!-- ═════════════ 1. HOME ═════════════ -->
+<div class="frame-title" id="home">01 <b>Home, desktop 1200</b> ~5.500px, was 10.406px</div>
+<div class="row">
+<div class="frame desk">
+  <!-- NAV -->
+  <div class="nav" style="position:sticky;top:0;z-index:4">
+<div class="pin" style="left:-12px;top:18px">1</div>
+    <div class="logo">LOGO</div>
+    <a href="#">Collectie ▾</a><a href="#">Diensten ▾</a><a href="#">Realisaties</a><a href="#">Promoties</a><a href="#">Advies ▾</a><a href="#">Over ons</a>
+    <span class="sp"></span>
+    <span class="small">☎ 09 225 05 77</span>
+    <span class="btn p">Afspraak in de toonzaal</span>
+  </div>
+
+  <!-- HERO -->
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;min-height:560px">
+<div class="pin" style="left:-12px;top:18px">2</div>
+    <div style="padding:72px 48px;display:flex;flex-direction:column;justify-content:center">
+      <p class="eb">Parketspecialist · Lochristi</p>
+      <h2 class="h1">Parket, gekozen in onze toonzaal en gelegd door onze eigen vakmensen.</h2>
+      <p class="lead" style="max-width:44ch">Familiebedrijf met eigen plaatsingsdienst. Meer dan 50 houtsoorten en 350 kleuren om te zien en te voelen.</p>
+      <div class="flex" style="margin-top:28px"><span class="btn p">Afspraak in de toonzaal</span><span class="btn s">Bekijk collectie</span></div>
+    </div>
+    <div class="img"><span>1 sfeerbeeld (interieur, daglicht), min. 2400px, zonder watermerk</span></div>
+  </div>
+
+  <!-- TRUST -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff">
+    <div class="pad flex"><div class="icon"></div><div><b style="font-size:14px">Eigen plaatsers</b><div class="small">geen onderaannemers</div></div></div>
+    <div class="pad flex"><div class="icon"></div><div><b style="font-size:14px">45+ jaar*</b><div class="small">familiebedrijf, 2 generaties</div></div></div>
+    <div class="pad flex"><div class="icon"></div><div><b style="font-size:14px">Toonzaal Lochristi</b><div class="small">di–za · bij Gent</div></div></div>
+    <div class="pad flex"><div class="icon"></div><div><b style="font-size:14px">50 houtsoorten</b><div class="small">350 kleuren · 8.000 artikelen</div></div></div>
+  </div>
+
+  <!-- COLLECTIE -->
+  <div class="sec">
+<div class="pin" style="left:-12px;top:18px">3</div>
+    <div class="flex between" style="align-items:flex-end;margin-bottom:28px">
+      <div><p class="eb">Collectie</p><h2 class="h2">Vind uw vloer</h2></div>
+      <span class="lnk">Volledige collectie →</span>
+    </div>
+    <div class="g" style="grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:220px 220px">
+      <div class="img" style="grid-row:span 2"><span>Massief parket</span></div>
+      <div class="img"><span>Meerlagen parket</span></div>
+      <div class="img"><span>Visgraat &amp; Hongaarse punt</span></div>
+      <div class="img" style="grid-column:span 2"><span>Laminaat &amp; LVT</span></div>
+    </div>
+    <p class="small" style="margin-top:12px">Tegels: groot beeld, titel over het beeld (onderaan, met verloop), aantal producten. Hover: beeld zoomt licht in en er verschijnt een streep-onderlijn.</p>
+  </div>
+
+  <!-- PROMOTIES -->
+  <div class="sec alt">
+<div class="pin" style="left:-12px;top:18px">4</div>
+    <div class="flex between" style="align-items:flex-end;margin-bottom:28px">
+      <div><p class="eb">Promoties</p><h2 class="h2">Nu in promotie</h2></div>
+      <span class="lnk">Alle promoties →</span>
+    </div>
+    <div class="g" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card" style="display:grid;grid-template-columns:120px 1fr">
+        <div class="img"></div>
+        <div class="pad"><span class="badge">−20%</span><p class="small" style="margin:10px 0 2px">ADMONTER</p><p class="h3">Eik rustiek wit geolied</p><p class="small" style="margin:6px 0 0">Tot 31 oktober</p></div>
+      </div>
+      <div class="card" style="display:grid;grid-template-columns:120px 1fr">
+        <div class="img"></div>
+        <div class="pad"><span class="badge">−30%</span><p class="small" style="margin:10px 0 2px">DI LEGNO</p><p class="h3">Visgraat Ostia 7</p><p class="small" style="margin:6px 0 0">Tot 15 november</p></div>
+      </div>
+      <div class="card" style="display:grid;grid-template-columns:120px 1fr">
+        <div class="img"></div>
+        <div class="pad"><span class="badge">Nieuw</span><p class="small" style="margin:10px 0 2px">BAMBOE</p><p class="h3">Bamboe visgraat</p><p class="small" style="margin:6px 0 0">Te zien in de toonzaal</p></div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:12px">Compact en horizontaal: label, merk, naam en einddatum zijn losse elementen. Er is geen lopende tekst en geen ingebrande tekst op de foto. De hele kaart is klikbaar.</p>
+  </div>
+
+  <!-- ZO WERKEN WE -->
+  <div class="sec">
+<div class="pin" style="left:-12px;top:18px">5</div>
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:48px">
+      <div><p class="eb">Zo werken we</p><h2 class="h2">Van staal tot sleutel, één aanspreekpunt</h2><p class="lead">Wij doen het hele traject zelf. Daarom kunnen we garantie geven op product én plaatsing.</p></div>
+      <div class="g" style="grid-template-columns:repeat(4,1fr)">
+        <div><b style="font:600 32px Georgia">01</b><p class="h3" style="margin:8px 0 4px">Toonzaal</p><div class="t w90"></div><div class="t w70"></div></div>
+        <div><b style="font:600 32px Georgia">02</b><p class="h3" style="margin:8px 0 4px">Opmeting</p><div class="t w90"></div><div class="t w60"></div></div>
+        <div><b style="font:600 32px Georgia">03</b><p class="h3" style="margin:8px 0 4px">Plaatsing</p><div class="t w80"></div><div class="t w70"></div></div>
+        <div><b style="font:600 32px Georgia">04</b><p class="h3" style="margin:8px 0 4px">Nazorg</p><div class="t w90"></div><div class="t w50"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REALISATIES -->
+  <div class="sec dk">
+<div class="pin" style="left:-12px;top:18px">6</div>
+    <div class="flex between" style="align-items:flex-end;margin-bottom:28px">
+      <div><p class="eb">Realisaties</p><h2 class="h2">Recent gelegd</h2></div>
+      <span class="lnk">Alle realisaties →</span>
+    </div>
+    <div class="g" style="grid-template-columns:2fr 1fr;grid-template-rows:200px 200px">
+      <div class="img" style="grid-row:span 2"><span>Relais des Oliviers · horeca · Di Legno</span></div>
+      <div class="img"><span>Villa Destelbergen · Admonter lapis</span></div>
+      <div class="img"><span>Woning Heusden · renovatie op tegels</span></div>
+    </div>
+    <p class="small" style="margin-top:12px">Per project: plaats, type ruimte en gebruikt product (dat laatste linkt naar de productpagina).</p>
+  </div>
+
+  <!-- WAAROM -->
+  <div class="sec alt">
+<div class="pin" style="left:-12px;top:18px">7</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
+      <div>
+        <p class="eb">Waarom W&amp;A</p>
+        <h2 class="h2">Een vloer die we zelf zouden leggen</h2>
+        <p class="lead">Twee generaties, één belofte: topkwaliteit, perfect afgewerkt, en ook over tien jaar nog herstelbaar.</p>
+        <div class="g" style="grid-template-columns:1fr 1fr;margin-top:28px;gap:24px">
+          <div class="flex" style="align-items:flex-start"><div class="icon" style="flex:none"></div><div><b style="font-size:14px">Topkwaliteit</b><div class="small">Dealer van Admonter, Di Legno, Twinfloor</div></div></div>
+          <div class="flex" style="align-items:flex-start"><div class="icon" style="flex:none"></div><div><b style="font-size:14px">Eerlijke producten</b><div class="small">Ecologisch en gezond binnenklimaat</div></div></div>
+          <div class="flex" style="align-items:flex-start"><div class="icon" style="flex:none"></div><div><b style="font-size:14px">Tot in de puntjes</b><div class="small">Eigen plaatsers, eigen afwerking</div></div></div>
+          <div class="flex" style="align-items:flex-start"><div class="icon" style="flex:none"></div><div><b style="font-size:14px">Altijd herstelbaar</b><div class="small">Continuïteit in producten</div></div></div>
+        </div>
+        <p style="margin-top:24px"><span class="lnk">Ons verhaal →</span></p>
+      </div>
+      <div class="img" style="height:380px"><span>Chevrolet-parkettruck (merkverhaal)</span></div>
+    </div>
+  </div>
+
+  <!-- ADVIES -->
+  <div class="sec">
+<div class="pin" style="left:-12px;top:18px">8</div>
+    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:48px">
+      <div>
+        <div class="flex between" style="align-items:flex-end;margin-bottom:24px"><div><p class="eb">Advies</p><h2 class="h2">Goed geïnformeerd kiezen</h2></div><span class="lnk">Alle artikels →</span></div>
+        <div class="g" style="grid-template-columns:repeat(3,1fr)">
+          <div><div class="img" style="height:130px"></div><p class="small" style="margin:10px 0 4px">12 SEP 2026 · Onderhoud</p><p class="h3" style="font-size:16px">Parketschade herstellen in 5 stappen</p></div>
+          <div><div class="img" style="height:130px"></div><p class="small" style="margin:10px 0 4px">Gids · Techniek</p><p class="h3" style="font-size:16px">Parket op vloerverwarming</p></div>
+          <div><div class="img" style="height:130px"></div><p class="small" style="margin:10px 0 4px">Gids · Hout</p><p class="h3" style="font-size:16px">Welke houtsoort past bij u?</p></div>
+        </div>
+      </div>
+      <div>
+        <p class="eb">Veelgestelde vragen</p>
+        <div style="border-top:1px solid var(--line)">
+          <div class="flex between pad" style="border-bottom:1px solid var(--line);padding-left:0"><b style="font-size:14px">Wat kost een parketvloer?</b>+</div>
+          <div class="flex between pad" style="border-bottom:1px solid var(--line);padding-left:0"><b style="font-size:14px">Is parket geschikt voor vloerverwarming?</b>+</div>
+          <div class="flex between pad" style="border-bottom:1px solid var(--line);padding-left:0"><b style="font-size:14px">Kan parket in de badkamer?</b>+</div>
+          <div class="flex between pad" style="border-bottom:1px solid var(--line);padding-left:0"><b style="font-size:14px">Hoe onderhoud ik mijn vloer?</b>+</div>
+          <div class="flex between pad" style="border-bottom:1px solid var(--line);padding-left:0"><b style="font-size:14px">Massief of meerlagen?</b>+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOONZAAL -->
+  <div class="dk" style="display:grid;grid-template-columns:1.2fr 1fr">
+<div class="pin" style="left:-12px;top:18px">9</div>
+    <div class="img" style="min-height:400px"><span>Toonzaal gevel / interieur</span></div>
+    <div style="padding:56px 48px">
+      <p class="eb">Toonzaal</p>
+      <h2 class="h2">Kom voelen, niet enkel kijken</h2>
+      <p class="lead" style="color:#bbb">Antwerpse Steenweg 148, 9080 Lochristi</p>
+      <div class="g" style="grid-template-columns:auto 1fr;gap:4px 24px;margin:20px 0 28px;font-size:14px">
+        <span>di–vr</span><span>13u – 18u</span><span>za</span><span>10u – 18u</span><span>zo–ma</span><span>gesloten · of op afspraak</span>
+      </div>
+      <div class="flex"><span class="btn p">Afspraak maken</span><span class="btn s">Route</span></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="sec" style="background:#2a2a2a;color:#bbb;padding-top:48px;padding-bottom:32px">
+    <div class="g" style="grid-template-columns:1.4fr repeat(4,1fr)">
+      <div><div class="logo" style="background:#444;color:#999">LOGO light</div><p class="small" style="color:#999;margin-top:12px">Je staat erop.</p></div>
+      <div class="small" style="color:#bbb"><b style="color:#eee">Collectie</b><br>Massief<br>Meerlagen<br>Fineer<br>Laminaat &amp; LVT</div>
+      <div class="small" style="color:#bbb"><b style="color:#eee">Diensten</b><br>Plaatsing<br>Renovatie<br>Trappen<br>Onderhoud</div>
+      <div class="small" style="color:#bbb"><b style="color:#eee">W&amp;A</b><br>Realisaties<br>Advies<br>Over ons<br>Nieuws</div>
+      <div class="small" style="color:#bbb"><b style="color:#eee">Contact</b><br>09 225 05 77<br>info@wa-parket.be<br>Lochristi</div>
+    </div>
+    <p class="small" style="color:#888;margin:32px 0 0;border-top:1px solid #444;padding-top:16px">© 2026 W&amp;A Parket · Privacy · Cookies · Disclaimer</p>
+  </div>
+</div>
+
+<div class="notes"><ol>
+  <li><b>Sticky nav, één balk</b>6 items, waar het er vroeger 9 plus 10 waren. De primaire knop staat rechts. Actieve staat is een onderlijn. Hoogte 76px, krimpt bij scrollen. Geen broodkruimel op home. <i>§1</i></li>
+  <li><b>Echte hero</b>Eén beeld, een H1-propositie, een lead en twee knoppen. De slider van 29 slides verdwijnt. Daaronder een vertrouwensbalk. *Jaartal en "35 of 45 jaar" nog te bevestigen. <i>§2</i></li>
+  <li><b>Collectie-ingang</b>4 tegels met groot beeld, bento-opbouw. Andere kaartvorm dan de promoties. <i>§4</i></li>
+  <li><b>Promoties compact</b>Label, merk, naam en einddatum als losse elementen. Link rechtsboven, altijd op dezelfde plek. <i>§3</i></li>
+  <li><b>Zo werken we</b>Nieuwe sectie die de eigen plaatsingsdienst concreet maakt. Die usp zat eerder begraven in 859 woorden.</li>
+  <li><b>Realisaties op donker</b>Donker vlak breekt het ritme. Projecten met plaats en product, geen fotomuur. <i>§4, §5</i></li>
+  <li><b>Missie ingekort</b>Een kernzin en 4 usp's met icoon. De Chevrolet blijft als merkverhaal. <i>§5</i></li>
+  <li><b>Advies en FAQ</b>Artikels met datum of categorie. De FAQ (die er al stond) als accordeon. Goed voor SEO. <i>§4</i></li>
+  <li><b>Toonzaal-CTA</b>Primaire actie nog één keer, samen met adres en uren. De sluitingsberichten (bouwverlof) worden een smalle banner boven de nav, geen blogkaart.</li>
+</ol></div>
+</div>
+
+<!-- ═════════════ 2. MEGAMENU ═════════════ -->
+<div class="frame-title" id="mega">02 <b>Megamenu Collectie</b> vervangt de tweede balk met 10 links</div>
+<div class="row">
+<div class="frame desk">
+  <div class="nav"><div class="logo">LOGO</div><a class="act" href="#">Collectie ▴</a><a href="#">Diensten ▾</a><a href="#">Realisaties</a><a href="#">Promoties</a><a href="#">Advies ▾</a><a href="#">Over ons</a><span class="sp"></span><span class="small">☎ 09 225 05 77</span><span class="btn p">Afspraak in de toonzaal</span></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr) 1.3fr;gap:40px;padding:36px 48px 40px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 20px 30px -20px rgba(0,0,0,.25)">
+    <div><p class="eb">Type</p><div style="display:grid;gap:10px;font-size:15px;font-weight:600"><span>Massief parket</span><span>Meerlagen parket</span><span>Fineerparket</span><span>Laminaat &amp; LVT</span></div></div>
+    <div><p class="eb">Vorm</p><div style="display:grid;gap:10px;font-size:15px;font-weight:600"><span>Planken</span><span>Brede planken (XXL)</span><span>Visgraat</span><span>Hongaarse punt</span></div></div>
+    <div><p class="eb">Merk</p><div style="display:grid;gap:10px;font-size:15px;font-weight:600"><span>Admonter</span><span>Di Legno</span><span>Twinfloor</span></div><p style="margin-top:20px"><span class="lnk">Volledige collectie →</span></p></div>
+    <div class="card" style="display:grid;grid-template-columns:130px 1fr"><div class="img"></div><div class="pad"><span class="badge">−20%</span><p class="small" style="margin:8px 0 2px">ADMONTER</p><p class="h3" style="font-size:16px">Eik rustiek wit geolied</p><p style="margin:10px 0 0"><span class="lnk">Bekijk promotie →</span></p></div></div>
+  </div>
+  <div style="height:160px;background:repeating-linear-gradient(0deg,#f2f2f2 0 20px,#fafafa 20px 40px);opacity:.6"></div>
+</div>
+<div class="notes"><ol>
+  <li><b>Collectie en diensten apart</b>Schuren, renovatie, trappen en onderhoud verhuizen naar het menu <i>Diensten</i>. De oude balk mengde die met producttypes.</li>
+  <li><b>Vorm en merk zijn filters</b>Een link naar /collectie/?vorm=visgraat. Zo is er één catalogus in plaats van losse lijsten.</li>
+  <li><b>Uitgelichte kaart</b>Wisselt met de actuele promotie. De klant kan ze in het CMS aanpassen.</li>
+</ol></div>
+</div>
+
+<!-- ═════════════ 3. MOBILE ═════════════ -->
+<div class="frame-title" id="mobile">03 <b>Mobiel, 375</b> home · menu · collectie</div>
+<div class="row" style="flex-wrap:wrap">
+  <!-- mobile home -->
+  <div class="frame mob">
+    <div class="nav" style="height:60px;padding:0 16px"><div class="logo" style="width:96px;height:32px">LOGO</div><span class="sp"></span><span style="font-size:22px">☰</span></div>
+    <div class="img" style="height:260px"><span>hero-beeld</span></div>
+    <div style="padding:28px 16px">
+      <p class="eb">Parketspecialist · Lochristi</p>
+      <h2 class="h1" style="font-size:32px">Parket, gekozen in onze toonzaal en gelegd door onze eigen vakmensen.</h2>
+      <p class="lead" style="font-size:15px">Familiebedrijf met eigen plaatsingsdienst.</p>
+      <div style="display:grid;gap:10px;margin-top:20px"><span class="btn p full">Afspraak in de toonzaal</span><span class="btn s full">Bekijk collectie</span></div>
+    </div>
+    <div style="display:flex;gap:12px;overflow:hidden;padding:0 16px 24px;border-bottom:1px solid var(--line)">
+      <div class="small" style="flex:none;padding:10px 12px;border:1px solid var(--line);background:#fff"><b style="color:var(--ink)">Eigen plaatsers</b></div>
+      <div class="small" style="flex:none;padding:10px 12px;border:1px solid var(--line);background:#fff"><b style="color:var(--ink)">45+ jaar</b></div>
+      <div class="small" style="flex:none;padding:10px 12px;border:1px solid var(--line);background:#fff"><b style="color:var(--ink)">Toonzaal</b></div>
+    </div>
+    <div style="padding:32px 16px">
+      <p class="eb">Collectie</p><h2 class="h2" style="font-size:26px;margin-bottom:16px">Vind uw vloer</h2>
+      <div class="g" style="grid-template-columns:1fr 1fr;gap:10px"><div class="img" style="height:140px"><span>Massief</span></div><div class="img" style="height:140px"><span>Meerlagen</span></div><div class="img" style="height:140px"><span>Visgraat</span></div><div class="img" style="height:140px"><span>Laminaat</span></div></div>
+    </div>
+    <div class="alt" style="padding:32px 16px"><p class="eb">Promoties</p><div class="card" style="display:grid;grid-template-columns:90px 1fr"><div class="img"></div><div class="pad"><span class="badge">−20%</span><p class="h3" style="font-size:15px;margin-top:8px">Admonter eik rustiek</p><p class="small" style="margin:4px 0 0">Tot 31 oktober</p></div></div></div>
+    <div class="small" style="padding:14px 16px;text-align:center">… secties 5–9 zoals desktop, gestapeld …</div>
+    <div class="mobbar"><span class="btn s full">☎ Bellen</span><span class="btn p full">Afspraak maken</span></div>
+  </div>
+
+  <!-- mobile menu -->
+  <div class="frame mob" style="min-height:700px;display:flex;flex-direction:column">
+    <div class="nav" style="height:60px;padding:0 16px"><div class="logo" style="width:96px;height:32px">LOGO</div><span class="sp"></span><span style="font-size:22px">✕</span></div>
+    <div style="padding:8px 16px;flex:1">
+      <div class="flex between" style="padding:16px 0;border-bottom:1px solid var(--line);font-size:20px;font-weight:600">Collectie <span>−</span></div>
+      <div style="padding:8px 0 12px 12px;display:grid;gap:12px;font-size:16px;border-bottom:1px solid var(--line)"><span>Massief parket</span><span>Meerlagen parket</span><span>Fineerparket</span><span>Laminaat &amp; LVT</span><span class="lnk">Volledige collectie →</span></div>
+      <div class="flex between" style="padding:16px 0;border-bottom:1px solid var(--line);font-size:20px;font-weight:600">Diensten <span>+</span></div>
+      <div style="padding:16px 0;border-bottom:1px solid var(--line);font-size:20px;font-weight:600">Realisaties</div>
+      <div style="padding:16px 0;border-bottom:1px solid var(--line);font-size:20px;font-weight:600">Promoties</div>
+      <div class="flex between" style="padding:16px 0;border-bottom:1px solid var(--line);font-size:20px;font-weight:600">Advies <span>+</span></div>
+      <div style="padding:16px 0;border-bottom:1px solid var(--line);font-size:20px;font-weight:600">Over ons</div>
+      <p class="small" style="margin-top:20px">Antwerpse Steenweg 148, Lochristi<br>di–vr 13–18u · za 10–18u</p>
+    </div>
+    <div class="mobbar"><span class="btn s full">☎ Bellen</span><span class="btn p full">Afspraak maken</span></div>
+  </div>
+
+  <!-- mobile PLP -->
+  <div class="frame mob" style="min-height:700px">
+    <div class="nav" style="height:60px;padding:0 16px"><div class="logo" style="width:96px;height:32px">LOGO</div><span class="sp"></span><span style="font-size:22px">☰</span></div>
+    <div style="padding:20px 16px 12px">
+      <p class="small">Collectie ›</p>
+      <h2 class="h2" style="font-size:28px">Meerlagen parket</h2>
+      <div class="flex" style="gap:8px;margin-top:16px"><span class="btn s" style="height:36px">⚙ Filters (2)</span><span class="btn s" style="height:36px">Sorteer ▾</span></div>
+      <div class="flex" style="gap:6px;margin-top:10px;flex-wrap:wrap"><span class="chip">Visgraat ✕</span><span class="chip">Vloerverwarming ✕</span></div>
+      <p class="small" style="margin:10px 0 0"><b style="color:var(--ink)">38</b> vloeren</p>
+    </div>
+    <div class="g" style="grid-template-columns:1fr 1fr;gap:12px;padding:0 16px 16px">
+      <div><div class="img" style="aspect-ratio:4/5"></div><p class="small" style="margin:8px 0 0">ADMONTER</p><b style="font-size:13px">Eik lapis gerookt</b></div>
+      <div><div class="img" style="aspect-ratio:4/5"></div><p class="small" style="margin:8px 0 0">DI LEGNO</p><b style="font-size:13px">Visgraat Ostia 7</b></div>
+      <div><div class="img" style="aspect-ratio:4/5"></div><p class="small" style="margin:8px 0 0">TWINFLOOR</p><b style="font-size:13px">Eik 1e keus Bis</b></div>
+      <div><div class="img" style="aspect-ratio:4/5"></div><p class="small" style="margin:8px 0 0">ADMONTER</p><b style="font-size:13px">Salis rustic</b></div>
+    </div>
+    <p class="small" style="padding:0 16px">Het eerste product staat op ±300px, was 3.370px.</p>
+  </div>
+
+  <div class="notes" style="max-width:320px"><ol>
+    <li><b>Eén balk met hamburger</b>De tweede productbalk verdwijnt in het menu. <i>§7</i></li>
+    <li><b>Menu-items 20px, 600, warm zwart</b>Accordeon per niveau, tap targets van 48px. <i>§7</i></li>
+    <li><b>Vaste actiebalk</b>Bellen en afspraak, altijd zichtbaar. Het reCAPTCHA-badge wordt verborgen. <i>§7</i></li>
+    <li><b>Filters in een bottom sheet</b>Actieve filters als chips, met de teller zichtbaar. <i>§6, §7</i></li>
+  </ol></div>
+</div>
+
+<!-- ═════════════ 4. PLP ═════════════ -->
+<div class="frame-title" id="plp">04 <b>Collectie-overzicht, desktop</b> T2</div>
+<div class="row">
+<div class="frame desk">
+  <div class="nav"><div class="logo">LOGO</div><a class="act" href="#">Collectie ▾</a><a href="#">Diensten ▾</a><a href="#">Realisaties</a><a href="#">Promoties</a><a href="#">Advies ▾</a><a href="#">Over ons</a><span class="sp"></span><span class="small">☎ 09 225 05 77</span><span class="btn p">Afspraak in de toonzaal</span></div>
+  <div style="padding:32px 48px 24px;border-bottom:1px solid var(--line)">
+    <p class="small">Home › Collectie</p>
+    <h2 class="h1" style="font-size:40px;margin:6px 0 8px">Parketvloeren</h2>
+    <p class="lead" style="margin:0 0 18px">Alle vloeren zijn te zien en te voelen in onze toonzaal in Lochristi.</p>
+    <div class="flex" style="gap:8px"><span class="chip">Alles</span><span class="chip off">Massief</span><span class="chip off">Meerlagen</span><span class="chip off">Fineer</span><span class="chip off">Laminaat &amp; LVT</span></div>
+  </div>
+  <div style="display:grid;grid-template-columns:260px 1fr;gap:40px;padding:28px 48px 48px">
+    <!-- filters -->
+    <aside style="font-size:14px">
+      <div style="border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:16px">
+<div class="pin" style="left:-36px;top:-4px">1</div>
+        <div class="flex between"><b>Vorm</b><span>−</span></div>
+        <div style="display:grid;gap:10px;margin-top:12px"><label><span class="box"></span>Planken <span class="small">(412)</span></label><label><span class="box on"></span>Visgraat <span class="small">(64)</span></label><label><span class="box"></span>Hongaarse punt <span class="small">(22)</span></label><label><span class="box"></span>Brede planken XXL <span class="small">(48)</span></label></div>
+      </div>
+      <div style="border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:16px">
+        <div class="flex between"><b>Merk</b><span>−</span></div>
+        <div style="display:grid;gap:10px;margin-top:12px"><label><span class="box"></span>Admonter</label><label><span class="box"></span>Di Legno</label><label><span class="box"></span>Twinfloor</label></div>
+      </div>
+      <div style="border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:16px">
+        <div class="flex between"><b>Houtsoort</b><span>−</span></div>
+        <div style="display:grid;gap:10px;margin-top:12px"><label><span class="box"></span>Eik 1e keus</label><label><span class="box"></span>Eik 1e keus-bis</label><label><span class="box"></span>Eik rustiek</label><label style="display:flex"><span class="box" style="flex:none"></span>Franse eik, verouderd en gerecupereerd</label><span class="lnk">+ 8 meer</span></div>
+      </div>
+      <div style="border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:16px">
+        <div class="flex between"><b>Toepassing</b><span>−</span></div>
+        <div style="display:grid;gap:10px;margin-top:12px"><label><span class="box on"></span>Vloerverwarming</label><label><span class="box"></span>Badkamer</label><label><span class="box"></span>Keuken</label><label><span class="box"></span>Op bestaande tegels</label></div>
+      </div>
+      <div class="flex between"><b>Kleur &amp; afwerking</b><span>+</span></div>
+    </aside>
+    <!-- results -->
+    <div>
+      <div class="flex between" style="margin-bottom:12px">
+<div class="pin" style="left:-36px;top:-4px">2</div><span style="font-size:14px"><b>38</b> parketvloeren</span><span class="small">Sorteer: <b style="color:var(--ink)">Aanbevolen ▾</b></span></div>
+      <div class="flex" style="gap:8px;margin-bottom:24px;flex-wrap:wrap"><span class="chip">Visgraat ✕</span><span class="chip">Vloerverwarming ✕</span><span class="lnk" style="font-size:12px;margin-left:6px">Wis alle filters</span></div>
+      <div class="g" style="grid-template-columns:repeat(3,1fr);gap:28px 20px">
+<div class="pin" style="left:-36px;top:-4px">3</div>
+        <div><div class="img" style="aspect-ratio:4/5"><span class="badge" style="position:absolute;top:10px;left:10px;z-index:2">−20%</span></div><p class="small" style="margin:12px 0 2px">ADMONTER</p><p class="h3">Eik rustiek wit geolied</p><p class="small" style="margin:4px 0 0">Eik rustiek · 192 mm · geolied</p></div>
+        <div><div class="img" style="aspect-ratio:4/5"></div><p class="small" style="margin:12px 0 2px">DI LEGNO</p><p class="h3">Visgraat Regorio</p><p class="small" style="margin:4px 0 0">Franse eik · 90 mm · hardwax</p></div>
+        <div><div class="img" style="aspect-ratio:4/5"></div><p class="small" style="margin:12px 0 2px">TWINFLOOR</p><p class="h3">Eik 1e keus Bis neutral oil</p><p class="small" style="margin:4px 0 0">Eik 1e keus-bis · 182 mm · geolied</p></div>
+        <div><div class="img" style="aspect-ratio:4/5"></div><p class="small" style="margin:12px 0 2px">ADMONTER</p><p class="h3">Lapis naturelle gerookt XXL</p><p class="small" style="margin:4px 0 0">Eik · 280 mm · geborsteld</p></div>
+        <div><div class="img" style="aspect-ratio:4/5"></div><p class="small" style="margin:12px 0 2px">DI LEGNO</p><p class="h3">Hongaarse punt Ostia</p><p class="small" style="margin:4px 0 0">Franse eik · 120 mm · verouderd</p></div>
+        <div><div class="img" style="aspect-ratio:4/5"></div><p class="small" style="margin:12px 0 2px">DI LEGNO</p><p class="h3">Nibbia eik rustiek exclusief</p><p class="small" style="margin:4px 0 0">Eik rustiek · 300 mm · gekleurd</p></div>
+      </div>
+      <div class="flex" style="justify-content:center;margin-top:36px;gap:8px;font-size:13px"><span class="btn s">Toon meer</span></div>
+      <p class="small" style="text-align:center;margin-top:8px">1–24 van 38 · pagina 1 2</p>
+    </div>
+  </div>
+</div>
+<div class="notes"><ol>
+  <li><b>Echte checkboxen</b>Leeg vierkant betekent uit, gevuld betekent aan, met een aantal per waarde. Lange labels breken af zonder fade. De staat zit in <code>input[type=checkbox]</code>. <i>§6</i></li>
+  <li><b>Teller en chips</b>"38 parketvloeren", de actieve filters als verwijderbare chips en een link "Wis alle filters". <i>§6</i></li>
+  <li><b>Kaarten met naam</b>Merk, productnaam en 3 kenmerken. Nooit meer tientallen keren "Meerlagen parket". 24 per pagina. <i>§6</i></li>
+</ol></div>
+</div>
+
+<!-- ═════════════ 5. PDP ═════════════ -->
+<div class="frame-title" id="pdp">05 <b>Productdetail, desktop</b> T3</div>
+<div class="row">
+<div class="frame desk">
+  <div class="nav"><div class="logo">LOGO</div><a class="act" href="#">Collectie ▾</a><a href="#">Diensten ▾</a><a href="#">Realisaties</a><a href="#">Promoties</a><a href="#">Advies ▾</a><a href="#">Over ons</a><span class="sp"></span><span class="small">☎ 09 225 05 77</span><span class="btn p">Afspraak in de toonzaal</span></div>
+  <div style="padding:20px 48px 0"><p class="small">Collectie › Massief › Di Legno Visgraat Regorio</p></div>
+  <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:48px;padding:16px 48px 56px">
+    <div>
+      <div class="img" style="aspect-ratio:4/3"><span>Hoofdbeeld (in situ)</span></div>
+      <div class="g" style="grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px"><div class="img" style="aspect-ratio:1"></div><div class="img" style="aspect-ratio:1"></div><div class="img" style="aspect-ratio:1"></div><div class="img" style="aspect-ratio:1"></div><div class="img" style="aspect-ratio:1"><span>+6</span></div></div>
+    </div>
+    <div style="position:sticky;top:88px;align-self:start">
+      <div class="pin" style="left:-36px;top:0">1</div>
+      <p class="eb">Di Legno · Massief</p>
+      <h2 class="h1" style="font-size:40px">Visgraat Regorio</h2>
+      <p class="lead">Verouderde Franse eik in visgraat, met een grijze oxidatieve afwerking. Een oude vloer in een moderne setting.</p>
+      <div class="g" style="grid-template-columns:auto 1fr;gap:8px 20px;margin:22px 0;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:14px">
+        <span class="small">Vorm</span><b>Visgraat</b>
+        <span class="small">Houtsoort</span><b>Franse eik, 2e keus / rustiek</b>
+        <span class="small">Breedte</span><b>50 · 70 · 90 · 120 mm</b>
+        <span class="small">Afwerking</span><b>Natuur of hardwax geolied</b>
+      </div>
+      <div style="display:grid;gap:10px"><span class="btn p full">Offerte aanvragen</span><span class="btn s full">Bekijk in de toonzaal</span></div>
+      <p class="small" style="margin-top:14px">Vragen? Bel 09 225 05 77, di–za</p>
+    </div>
+  </div>
+  <div class="sec alt" style="display:grid;grid-template-columns:1fr 1fr;gap:56px">
+    <div>
+<div class="pin" style="left:-12px;top:18px">2</div>
+      <p class="eb">Specificaties</p>
+      <div style="font-size:14px">
+        <div class="flex between" style="padding:10px 0;border-bottom:1px solid var(--line)"><span class="small">Dikte</span><b>15 · 18 (10+8) · 20 mm</b></div>
+        <div class="flex between" style="padding:10px 0;border-bottom:1px solid var(--line)"><span class="small">Lengte</span><b>355 · 500 · 540 · 600 mm</b></div>
+        <div class="flex between" style="padding:10px 0;border-bottom:1px solid var(--line)"><span class="small">Toplaag</span><b>massief 10 mm</b></div>
+        <div class="flex between" style="padding:10px 0;border-bottom:1px solid var(--line)"><span class="small">Kwaliteit</span><b>Franse eik 1e Bis · rustiek</b></div>
+        <div class="flex between" style="padding:10px 0;border-bottom:1px solid var(--line)"><span class="small">Oppervlak</span><b>verouderd, verouderde randen</b></div>
+        <div class="flex between" style="padding:10px 0;border-bottom:1px solid var(--line)"><span class="small">Plaatsing</span><b>gelijmd en genageld (traditioneel)</b></div>
+      </div>
+    </div>
+    <div>
+      <p class="eb">Geschikt voor</p>
+      <div class="g" style="grid-template-columns:repeat(3,1fr);gap:16px;font-size:13px;text-align:center">
+        <div><div class="icon" style="margin:0 auto 6px"></div>Vloerverwarming</div>
+        <div><div class="icon" style="margin:0 auto 6px"></div>Keuken</div>
+        <div><div class="icon" style="margin:0 auto 6px"></div>Op bestaande tegels</div>
+        <div><div class="icon" style="margin:0 auto 6px"></div>Geluidsdempend</div>
+        <div><div class="icon" style="margin:0 auto 6px"></div>Ecologisch</div>
+        <div><div class="icon" style="margin:0 auto 6px"></div>Intensief gebruik</div>
+      </div>
+      <p class="eb" style="margin-top:28px">Over Di Legno</p><div class="t w90"></div><div class="t w80"></div><div class="t w50"></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="flex between" style="align-items:flex-end;margin-bottom:20px"><div><p class="eb">Realisaties</p><h2 class="h2" style="font-size:26px">Deze vloer bij onze klanten</h2></div></div>
+    <div class="g" style="grid-template-columns:2fr 1fr 1fr;height:220px"><div class="img"></div><div class="img"></div><div class="img"></div></div>
+  </div>
+  <div class="sec alt">
+    <p class="eb">Ook bekijken</p>
+    <div class="g" style="grid-template-columns:repeat(4,1fr)"><div><div class="img" style="aspect-ratio:4/5"></div><p class="h3" style="font-size:15px;margin-top:8px">Hongaarse punt Ostia</p></div><div><div class="img" style="aspect-ratio:4/5"></div><p class="h3" style="font-size:15px;margin-top:8px">Visgraat Ostia 7</p></div><div><div class="img" style="aspect-ratio:4/5"></div><p class="h3" style="font-size:15px;margin-top:8px">Nibbia exclusief</p></div><div><div class="img" style="aspect-ratio:4/5"></div><p class="h3" style="font-size:15px;margin-top:8px">Pompei pure</p></div></div>
+  </div>
+</div>
+<div class="notes"><ol>
+  <li><b>Sticky beslispaneel</b>Merk, naam, 4 kernkenmerken, de knop "Offerte aanvragen" en daaronder "Bekijk in de toonzaal". Op mobiel vervangt een vaste offerte-balk de algemene actiebalk. <i>§6</i></li>
+  <li><b>Specs als tabel</b>De lange tekstkolom wordt gestructureerde data. Uit dezelfde velden komen de filters en de kaartkenmerken. De toepassingen worden iconen.</li>
+  <li><b>Realisaties met dit product</b>Koppelt de inspiratiefoto's aan het product. Dat vraagt een relatie in het CMS tussen project en product.</li>
+</ol></div>
+</div>
+
+</div>
+</body>
+</html>

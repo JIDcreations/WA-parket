@@ -1,0 +1,52 @@
+<div class="container">
+  <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Afspraak maken</li></ol></nav>
+  <div class="booking">
+    <div>
+      <h1 class="h1" style="margin:var(--space-4) 0 var(--space-4)">Afspraak in de toonzaal</h1>
+      <p class="lead" style="margin-bottom:var(--block-gap)">Op afspraak maken we rustig tijd voor u, met de stalen al klaar. U kunt ook gewoon binnenlopen tijdens de openingsuren.</p>
+
+      <form class="form" id="booking-form" novalidate>
+        <fieldset class="intent">
+          <legend>Waarmee kunnen we helpen?</legend>
+          <label><input type="radio" name="intent" value="toonzaal" checked><b>Toonzaalbezoek</b><span>Samen vloeren bekijken in Lochristi</span></label>
+          <label><input type="radio" name="intent" value="offerte"><b>Offerte</b><span>Prijs voor een vloer of plaatsing</span></label>
+          <label><input type="radio" name="intent" value="thuis"><b>Advies aan huis</b><span>We komen bij u langs</span></label>
+        </fieldset>
+
+        <div class="row2">
+          <div class="field"><label for="f-name">Naam</label><input id="f-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="f-phone">Telefoon</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        </div>
+        <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" autocomplete="email" required></div>
+        <div class="row2">
+          <div class="field"><label for="f-date">Voorkeursdag <small>(optioneel)</small></label><input id="f-date" name="date" type="date"></div>
+          <div class="field"><label for="f-time">Moment <small>(optioneel)</small></label>
+            <select id="f-time" name="time"><option>Geen voorkeur</option><option>Namiddag, 13 tot 15 uur</option><option>Late namiddag, 15 tot 18 uur</option><option>Zaterdagvoormiddag, 10 tot 12 uur</option></select></div>
+        </div>
+        <div class="field"><label for="f-msg">Uw project <small>(optioneel)</small></label><textarea id="f-msg" name="message" placeholder="Bijvoorbeeld: leefruimte van 45 m², vloerverwarming, bestaande tegels"></textarea></div>
+        <p class="form__legal">We gebruiken uw gegevens enkel om u te contacteren over deze aanvraag. Dit formulier is beschermd door reCAPTCHA; het privacybeleid en de gebruiksvoorwaarden van Google zijn van toepassing.</p>
+        <div><button class="btn btn--primary" type="submit">Afspraak aanvragen</button></div>
+        <div class="form__done" role="status" tabindex="-1">
+          <h2 class="h3" style="margin-bottom:.5rem">Aanvraag verstuurd</h2>
+          <p class="muted">We bellen u binnen één werkdag terug om een moment vast te leggen. Dringend? Bel <a href="tel:+3292250577">09 225 05 77</a>.</p>
+        </div>
+      </form>
+    </div>
+
+    <aside>
+      <div class="side-card">
+        <img src="assets/img/toonzaal-exterior-2.jpg" alt="Toonzaal van W&amp;A Parket in Lochristi" loading="lazy">
+        <div class="side-card__body">
+          <h2 class="h3" style="margin-bottom:var(--space-4)">Toonzaal Lochristi</h2>
+          <address style="font-style:normal;line-height:1.6;margin-bottom:var(--space-5)">Antwerpse Steenweg 148<br>9080 Lochristi</address>
+          <dl class="hours" data-hours style="margin-bottom:var(--space-5)">
+            <dt data-day="2 3 4 5">Di tot vr</dt><dd data-day="2 3 4 5">13 tot 18 uur</dd>
+            <dt data-day="6">Zaterdag</dt><dd data-day="6">10 tot 18 uur</dd>
+            <dt data-day="0 1">Zo en ma</dt><dd data-day="0 1">Gesloten</dd>
+          </dl>
+          <p style="display:flex;flex-direction:column;gap:.5rem"><a class="link" href="tel:+3292250577" style="color:var(--wa-creme)">09 225 05 77</a><a class="link" href="mailto:info@wa-parket.be" style="color:var(--wa-creme)">info@wa-parket.be</a></p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

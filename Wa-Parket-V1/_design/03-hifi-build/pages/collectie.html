@@ -1,0 +1,51 @@
+<div class="plp-head">
+  <div class="container">
+    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Collectie</li></ol></nav>
+    <h1 class="h1">Parketvloeren</h1>
+    <p class="lead">Elke vloer hier kunt u zien en voelen in onze toonzaal in Lochristi. Twijfelt u tussen twee vloeren? We leggen ze daar graag naast elkaar.</p>
+    <div class="quick" role="group" aria-label="Snel kiezen op type">
+      <button type="button" data-quick="" aria-pressed="true">Alle vloeren</button>
+      <button type="button" data-quick="massief" aria-pressed="false">Massief</button>
+      <button type="button" data-quick="meerlagen" aria-pressed="false">Meerlagen</button>
+      <button type="button" data-quick="fineer" aria-pressed="false">Fineer</button>
+      <button type="button" data-quick="laminaat" aria-pressed="false">Laminaat &amp; LVT</button>
+    </div>
+  </div>
+</div>
+
+<div class="container plp">
+  <aside class="filters" id="filters" aria-label="Filters">
+    <div class="filters__head">
+      <h2>Filters</h2>
+      <button type="button" class="drawer__close filters__close" aria-label="Filters sluiten">{{icon:close}}</button>
+    </div>
+    <form id="filter-form">
+{{filters}}
+    </form>
+    <div class="filters__apply"><button type="button" class="btn btn--primary btn--block" data-close-filters>Toon <span data-count-label>{{total}}</span> vloeren</button></div>
+  </aside>
+
+  <section class="results" aria-labelledby="res-count">
+    <div class="results__bar">
+      <p class="results__count" id="res-count" aria-live="polite"><b data-count>{{total}}</b> parketvloeren</p>
+      <div style="display:flex;gap:var(--space-3);align-items:center">
+        <button type="button" class="btn btn--secondary filter-open" aria-controls="filters" aria-expanded="false">{{icon:filter}} Filters <span data-active-n></span></button>
+        <label class="sort"><span class="sr-only">Sorteer</span><select id="sort"><option value="aanbevolen">Aanbevolen</option><option value="promo">Promoties eerst</option><option value="az">Naam, A tot Z</option></select></label>
+      </div>
+    </div>
+    <div class="chips" data-chips></div>
+    <div class="grid" data-grid>
+{{grid}}
+      <div class="empty" data-empty hidden>
+        <h3>Geen vloeren met deze combinatie</h3>
+        <p>Haal een filter weg, of vraag het ons: onze adviseurs vinden vaak wat u zoekt buiten de online selectie.</p>
+        <button type="button" class="btn btn--secondary" data-reset>Wis alle filters</button>
+      </div>
+    </div>
+    <div class="more">
+      <p class="small muted"><span data-shown>{{total}}</span> van 196 vloeren getoond</p>
+      <div class="more__bar" aria-hidden="true"><span style="width:6%"></span></div>
+      <button type="button" class="btn btn--secondary">Toon meer vloeren</button>
+    </div>
+  </section>
+</div>

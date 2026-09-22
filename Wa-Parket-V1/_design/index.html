@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>W&amp;A Parket ontwerpproces</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&amp;family=Montserrat:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/main.css">
+<style>
+  .hub{max-width:980px;margin:0 auto;padding:var(--space-9) var(--gutter)}
+  .hub header img{height:64px;width:auto;margin-bottom:var(--space-7)}
+  .hub .steps-list{display:grid;gap:var(--space-4);margin-top:var(--space-8)}
+  .hub a.item{display:grid;grid-template-columns:72px 1fr auto;gap:var(--space-5);align-items:center;padding:var(--space-6);background:var(--wa-wit);border:1px solid var(--wa-lijn);border-radius:var(--radius-md);text-decoration:none;transition:border-color var(--dur-fast)}
+  .hub a.item:hover{border-color:var(--wa-zwart)}
+  .hub a.item:hover h2{color:var(--wa-rood)}
+  .hub .n{font:500 2.75rem/1 var(--font-display);color:var(--wa-rood)}
+  .hub h2{font-size:1.75rem;margin-bottom:.3rem}
+  .hub .item p{color:var(--wa-steen);font-size:.9375rem}
+  .hub .files{margin-top:var(--space-8);font-size:.9375rem;color:var(--wa-steen)}
+  .hub .files a{font-weight:600;color:var(--wa-zwart)}
+  @media (max-width:640px){.hub a.item{grid-template-columns:1fr}.hub a.item .link{justify-self:start}}
+</style>
+</head>
+<body>
+<main class="hub">
+  <header>
+    <img src="../assets/logo/wa-parket-logo.png" alt="W&amp;A Parket">
+    <h1 class="h1">Redesign wa-parket.be</h1>
+    <p class="lead" style="margin-top:var(--space-4)">Het ontwerpproces in drie stappen: eerst het merk, dan de structuur, dan het uitgewerkte ontwerp. Alles vertrekt vanuit de audit van 22 september 2026.</p>
+  </header>
+  <div class="steps-list">
+    <a class="item" href="01-brand/brand-board.html"><span class="n">1</span><div><h2>Merk</h2><p>Logo, kleuren uit het logo, typografie, knoppen en beeldrichting.</p></div><span class="link">Bekijk brand board</span></a>
+    <a class="item" href="02-structure-lofi/wireframes.html"><span class="n">2</span><div><h2>Structuur</h2><p>Nieuwe navigatie en lo-fi wireframes van home, collectie, productpagina en mobiel, met verwijzingen naar de audit.</p></div><span class="link">Bekijk wireframes</span></a>
+    <a class="item" href="../index.html"><span class="n">3</span><div><h2>Ontwerp</h2><p>Klikbaar prototype: home, collectie met werkende filters, productpagina en afspraakformulier.</p></div><span class="link">Open de site</span></a>
+  </div>
+  <p class="files">Achtergrond: <a href="02-structure-lofi/sitemap.md">sitemap en IA</a>, <a href="01-brand/brand.md">merkfundament</a>, <a href="README.md">open vragen</a>.</p>
+</main>
+</body>
+</html>
